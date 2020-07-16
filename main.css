@@ -1,0 +1,136 @@
+body
+{
+	margin: 0;
+	background-color: #26282E;
+	color: #d6c475;
+	font-family: 'Lato', sans-serif;
+    font-size: 28px;
+}
+
+a:link    { color: #dfe237; text-decoration: none; }
+a:visited { color: #9fa121; }
+a:active  { color: #c9cc1f; }
+a:hover   { color: #E9B64A; }
+
+h1
+{
+	font-size: 64px;
+	font-weight: 400;
+	text-align: center;
+	letter-spacing: 5px;
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+
+p
+{
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 25px;
+	letter-spacing: 2px;
+}
+
+.board
+{
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.cardA
+{
+	width: 125px;
+	height: 125px;
+	display: inline-block;
+	margin: 3px;
+	background-image:url("img/gta5-logo.jpg");
+    background-size: cover;
+    background-position:center;
+    background-repeat: no-repeat;
+	border: 4px solid  #d6c475;
+	border-radius: 4px;
+	cursor: default;
+	filter: brightness(100%);
+	transition: all .3s ease-in-out;
+}
+header h3{
+	text-align: center;
+}
+.card
+{
+	width: 125px;
+	height: 125px;
+	display: inline-block;
+	margin: 3px;
+	background-image:url("img/gta5-logo.jpg");
+    background-size: cover;
+    background-position:center;
+    background-repeat: no-repeat;
+	border: 4px solid  #d6c475;
+	border-radius: 4px;
+	cursor: pointer;
+	filter: brightness(70%);
+	transition: all .3s ease-in-out;
+}
+
+.card:hover
+{
+	border: 4px solid #d6c475;
+	filter: brightness(100%);
+}
+
+.score
+{
+	margin-top: 5px;
+	letter-spacing: 2px;
+}
+.start-game{
+    padding: 3rem;
+    font-size: 4rem;
+    text-align:center;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 100;
+    display: block;
+    border: none;
+    background-color: #d6c475;;
+    color: #fff;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+}
+.game{
+    visibility: hidden;
+}
+.footer{
+    margin: 4rem auto 0 0;
+    text-align: center;
+}
+.footer__text{
+    font-size: 1.3rem;
+}
+
+.footer__author{
+    padding: 0 .5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
