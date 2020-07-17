@@ -3,59 +3,62 @@ const cards = ["michael.jpg","trevor.jpg","franklin.jpg","michael.jpg","trevor.j
 
 const startGame = document.querySelector('.start-game');
 const game = document.querySelector('.game');
+const board =document.querySelector('.board');
+const timeElement = document.querySelector('.time');
 
 
-var c0 = document.getElementById('c0');
-var c1 = document.getElementById('c1');
-var c2 = document.getElementById('c2');
-var c3 = document.getElementById('c3');
+const card0 = document.getElementById('card0');
+const card1 = document.getElementById('card1');
+const card2 = document.getElementById('card2');
+const card3 = document.getElementById('card3');
 
-var c4 = document.getElementById('c4');
-var c5 = document.getElementById('c5');
-var c6 = document.getElementById('c6');
-var c7 = document.getElementById('c7');
+const card4 = document.getElementById('card4');
+const card5 = document.getElementById('card5');
+const card6 = document.getElementById('card6');
+const card7 = document.getElementById('card7');
 
-var c8 = document.getElementById('c8');
-var c9 = document.getElementById('c9');
-var c10 = document.getElementById('c10');
-var c11 = document.getElementById('c11');
+const card8 = document.getElementById('card8');
+const card9 = document.getElementById('card9');
+const card10 = document.getElementById('card10');
+const card11 = document.getElementById('card11');
 
-c0.addEventListener("click", function() { revealCard(0); });
-c1.addEventListener("click", function() { revealCard(1); });
-c2.addEventListener("click", function() { revealCard(2); });
-c3.addEventListener("click", function() { revealCard(3); });
+card0.addEventListener("click", function() { revealCard(0); });
+card1.addEventListener("click", function() { revealCard(1); });
+card2.addEventListener("click", function() { revealCard(2); });
+card3.addEventListener("click", function() { revealCard(3); });
 
-c4.addEventListener("click", function() { revealCard(4); });
-c5.addEventListener("click", function() { revealCard(5); });
-c6.addEventListener("click", function() { revealCard(6); });
-c7.addEventListener("click", function() { revealCard(7); });
+card4.addEventListener("click", function() { revealCard(4); });
+card5.addEventListener("click", function() { revealCard(5); });
+card6.addEventListener("click", function() { revealCard(6); });
+card7.addEventListener("click", function() { revealCard(7); });
 
-c8.addEventListener("click", function() { revealCard(8); });
-c9.addEventListener("click", function() { revealCard(9); });
-c10.addEventListener("click", function() { revealCard(10); });
-c11.addEventListener("click", function() { revealCard(11); });
+card8.addEventListener("click", function() { revealCard(8); });
+card9.addEventListener("click", function() { revealCard(9); });
+card10.addEventListener("click", function() { revealCard(10); });
+card11.addEventListener("click", function() { revealCard(11); });
 
-var oneVisible = false;
-var turnCounter = 0;
-var visible_nr;
-var lock = false;
-var pairsLeft = 6;
+let oneVisible = false;
+let turnCounter = 0;
+let visible_nr;
+let lock = false;
+let pairsLeft = 6;
 
 function revealCard(nr)
 {
-	var opacityValue = $('#c'+nr).css('opacity');
+	
+	const opacityValue = document.querySelector(`#card${nr}`).style.opacity;
+
 	
 
-	if (opacityValue != 0 && lock == false)
+	if (opacityValue !== 0 && lock === false)
 	{
 		lock = true;
 		
+		const obraz = `url(img/${cards[nr]})`
 		
-		var obraz = "url(img/" + cards[nr] + ")";
-		
-		$('#c'+nr).css('background-image', obraz);
-		$('#c'+nr).addClass('cardA');
-		$('#c'+nr).removeClass('card');
+		document.querySelector(`#card${nr}`).style.backgroundImage = obraz;
+		document.querySelector(`#card${nr}`).classList.add('cardA');
+		document.querySelector(`#card${nr}`).classList.remove('card');
 		
 		if(oneVisible == false)
 		{
@@ -71,20 +74,19 @@ function revealCard(nr)
 			
 			if(cards[visible_nr] == cards[nr])
 			{
-				//alert("para");
+			
 				
 				setTimeout(function() { hide2Cards(nr, visible_nr) }, 750);
 				
 			}
 			else
 			{
-				//alert("pudło");
 				
 				setTimeout(function() { restore2Cards(nr, visible_nr) }, 1000);
 			}
 			
 			turnCounter++;
-			$('.score').html('Turn counter: '+turnCounter);
+			document.querySelector('.score').textContent=`Turn counter: ${turnCounter}`;
 			oneVisible = false;
 		}
 		
@@ -94,14 +96,25 @@ function revealCard(nr)
 
 function hide2Cards(nr1, nr2)
 {
-	$('#c'+nr1).css('opacity', '0');
-	$('#c'+nr2).css('opacity', '0');
+	document.querySelector(`#card${nr1}`).style.opacity='0';
+	document.querySelector(`#card${nr2}`).style.opacity='0';
 	
 	pairsLeft--;
 	
 	if(pairsLeft == 0)
 	{
-		document.querySelector('.board').html('<h1>Well done<br>Done in '+turnCounter+' turns</h1>');
+		
+		
+		document.querySelector('.board').innerHTML = `
+		<h1>Well done <br> Done in ${turnCounter} turns</h1>
+		<h3>You have finished the game in ${timeElement.textContent}</h3>
+		<button class="reset-game">Reset Game</button>
+		`;
+		clearInterval(countTime);
+		const resetGame = document.querySelector('.reset-game');
+		resetGame && resetGame.addEventListener('click',()=>{
+		window.location.reload(true)
+})
 	}
 	
 	lock = false;
@@ -109,13 +122,15 @@ function hide2Cards(nr1, nr2)
 
 function restore2Cards(nr1, nr2)
 {
-	$('#c'+nr1).css('background-image', 'url(img/gta5-logo.jpg)');
-	$('#c'+nr1).addClass('card');
-	$('#c'+nr1).removeClass('cardA');	
+	const firstCard = document.querySelector(`#card${nr1}`)
+	const secondCard = document.querySelector(`#card${nr2}`)
+	firstCard.style.backgroundImage=`url(img/gta5-logo.jpg)`; 
+	firstCard.classList.add('card');
+	firstCard.classList.remove('cardA');	
 
-	$('#c'+nr2).css('background-image', 'url(img/gta5-logo.jpg)');
-	$('#c'+nr2).addClass('card');
-	$('#c'+nr2).removeClass('cardA');
+	secondCard.style.backgroundImage =`url(img/gta5-logo.jpg)`; 
+	secondCard.classList.add('card');
+	secondCard.classList.remove('cardA');
 	
 	lock = false;
 }
@@ -126,3 +141,19 @@ startGame.addEventListener('click',()=>{
     game.style.visibility='visible';
     startGame.style.visibility='hidden';
 })
+
+
+const startTime = 0;
+let time = startTime * 60;
+
+function upadateTime(){
+	let minutes = Math.floor(time /60);
+	let seconds = time % 60;
+
+	minutes = minutes <10 ? '0'+minutes : minutes;
+	seconds = seconds <10 ? '0'+seconds : seconds;
+	timeElement.innerHTML = `${minutes}:${seconds}`
+	time ++
+}
+
+const countTime = setInterval(upadateTime,1000)
